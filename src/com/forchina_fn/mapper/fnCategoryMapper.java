@@ -1,26 +1,20 @@
 package com.forchina_fn.mapper;
 
-import com.forchina_fn.pojo.fnCategory;
-import com.forchina_fn.pojo.fnCategoryExample;
-import com.forchina_fn.pojo.fnCategoryWithBLOBs;
-import java.util.List;
+import com.forchina_fn.pojo.FnCategory;
+import com.forchina_fn.pojo.FnCategoryWithBLOBs;
 
-public interface fnCategoryMapper {
+public interface FnCategoryMapper {
     int deleteByPrimaryKey(Short catid);
 
-    int insert(fnCategoryWithBLOBs record);
+    int insert(FnCategoryWithBLOBs record);
 
-    int insertSelective(fnCategoryWithBLOBs record);
+    int insertSelective(FnCategoryWithBLOBs record);
 
-    List<fnCategoryWithBLOBs> selectByExampleWithBLOBs(fnCategoryExample example);
+    FnCategoryWithBLOBs selectByPrimaryKey(Short catid);
 
-    List<fnCategory> selectByExample(fnCategoryExample example);
+    int updateByPrimaryKeySelective(FnCategoryWithBLOBs record);
 
-    fnCategoryWithBLOBs selectByPrimaryKey(Short catid);
+    int updateByPrimaryKeyWithBLOBs(FnCategoryWithBLOBs record);
 
-    int updateByPrimaryKeySelective(fnCategoryWithBLOBs record);
-
-    int updateByPrimaryKeyWithBLOBs(fnCategoryWithBLOBs record);
-
-    int updateByPrimaryKey(fnCategory record);
+    int updateByPrimaryKey(FnCategory record);
 }

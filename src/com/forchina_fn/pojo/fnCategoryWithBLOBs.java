@@ -1,6 +1,6 @@
 package com.forchina_fn.pojo;
 
-public class fnCategoryWithBLOBs extends fnCategory {
+public class FnCategoryWithBLOBs extends FnCategory {
     private String content;
 
     private String metaKeywords;

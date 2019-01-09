@@ -1,6 +1,6 @@
 package com.forchina_fn.pojo;
 
-public class fnCategory {
+public class FnCategory {
     private Short catid;
 
     private Byte site;

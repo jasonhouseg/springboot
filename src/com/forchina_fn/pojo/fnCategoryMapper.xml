@@ -1,6 +1,779 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.forchina_fn.mapper.fnCategoryMapper">
+<mapper namespace="com.forchina_fn.mapper.FnCategoryMapper">
+  <resultMap id="BaseResultMap" type="com.forchina_fn.pojo.FnCategory">
+    <id column="catid" jdbcType="SMALLINT" property="catid" />
+    <result column="site" jdbcType="TINYINT" property="site" />
+    <result column="typeid" jdbcType="BIT" property="typeid" />
+    <result column="modelid" jdbcType="SMALLINT" property="modelid" />
+    <result column="parentid" jdbcType="SMALLINT" property="parentid" />
+    <result column="arrparentid" jdbcType="VARCHAR" property="arrparentid" />
+    <result column="child" jdbcType="BIT" property="child" />
+    <result column="arrchildid" jdbcType="VARCHAR" property="arrchildid" />
+    <result column="catname" jdbcType="VARCHAR" property="catname" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="meta_title" jdbcType="VARCHAR" property="metaTitle" />
+    <result column="catdir" jdbcType="VARCHAR" property="catdir" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="urlpath" jdbcType="VARCHAR" property="urlpath" />
+    <result column="items" jdbcType="INTEGER" property="items" />
+    <result column="listorder" jdbcType="SMALLINT" property="listorder" />
+    <result column="ismenu" jdbcType="BIT" property="ismenu" />
+    <result column="categorytpl" jdbcType="VARCHAR" property="categorytpl" />
+    <result column="listtpl" jdbcType="VARCHAR" property="listtpl" />
+    <result column="showtpl" jdbcType="VARCHAR" property="showtpl" />
+    <result column="pagesize" jdbcType="SMALLINT" property="pagesize" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.forchina_fn.pojo.FnCategoryWithBLOBs">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="meta_keywords" jdbcType="LONGVARCHAR" property="metaKeywords" />
+    <result column="meta_description" jdbcType="LONGVARCHAR" property="metaDescription" />
+    <result column="setting" jdbcType="LONGVARCHAR" property="setting" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    catid, site, typeid, modelid, parentid, arrparentid, child, arrchildid, catname, 
+    image, meta_title, catdir, url, urlpath, items, listorder, ismenu, categorytpl, listtpl, 
+    showtpl, pagesize
+  </sql>
+  <sql id="Blob_Column_List">
+    content, meta_keywords, meta_description, setting
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from fn_category
+    where catid = #{catid,jdbcType=SMALLINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from fn_category
+    where catid = #{catid,jdbcType=SMALLINT}
+  </delete>
+  <insert id="insert" parameterType="com.forchina_fn.pojo.FnCategoryWithBLOBs">
+    insert into fn_category (catid, site, typeid, 
+      modelid, parentid, arrparentid, 
+      child, arrchildid, catname, 
+      image, meta_title, catdir, 
+      url, urlpath, items, 
+      listorder, ismenu, categorytpl, 
+      listtpl, showtpl, pagesize, 
+      content, meta_keywords, meta_description, 
+      setting)
+    values (#{catid,jdbcType=SMALLINT}, #{site,jdbcType=TINYINT}, #{typeid,jdbcType=BIT}, 
+      #{modelid,jdbcType=SMALLINT}, #{parentid,jdbcType=SMALLINT}, #{arrparentid,jdbcType=VARCHAR}, 
+      #{child,jdbcType=BIT}, #{arrchildid,jdbcType=VARCHAR}, #{catname,jdbcType=VARCHAR}, 
+      #{image,jdbcType=VARCHAR}, #{metaTitle,jdbcType=VARCHAR}, #{catdir,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{urlpath,jdbcType=VARCHAR}, #{items,jdbcType=INTEGER}, 
+      #{listorder,jdbcType=SMALLINT}, #{ismenu,jdbcType=BIT}, #{categorytpl,jdbcType=VARCHAR}, 
+      #{listtpl,jdbcType=VARCHAR}, #{showtpl,jdbcType=VARCHAR}, #{pagesize,jdbcType=SMALLINT}, 
+      #{content,jdbcType=LONGVARCHAR}, #{metaKeywords,jdbcType=LONGVARCHAR}, #{metaDescription,jdbcType=LONGVARCHAR}, 
+      #{setting,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.forchina_fn.pojo.FnCategoryWithBLOBs">
+    insert into fn_category
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="catid != null">
+        catid,
+      </if>
+      <if test="site != null">
+        site,
+      </if>
+      <if test="typeid != null">
+        typeid,
+      </if>
+      <if test="modelid != null">
+        modelid,
+      </if>
+      <if test="parentid != null">
+        parentid,
+      </if>
+      <if test="arrparentid != null">
+        arrparentid,
+      </if>
+      <if test="child != null">
+        child,
+      </if>
+      <if test="arrchildid != null">
+        arrchildid,
+      </if>
+      <if test="catname != null">
+        catname,
+      </if>
+      <if test="image != null">
+        image,
+      </if>
+      <if test="metaTitle != null">
+        meta_title,
+      </if>
+      <if test="catdir != null">
+        catdir,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="urlpath != null">
+        urlpath,
+      </if>
+      <if test="items != null">
+        items,
+      </if>
+      <if test="listorder != null">
+        listorder,
+      </if>
+      <if test="ismenu != null">
+        ismenu,
+      </if>
+      <if test="categorytpl != null">
+        categorytpl,
+      </if>
+      <if test="listtpl != null">
+        listtpl,
+      </if>
+      <if test="showtpl != null">
+        showtpl,
+      </if>
+      <if test="pagesize != null">
+        pagesize,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="metaKeywords != null">
+        meta_keywords,
+      </if>
+      <if test="metaDescription != null">
+        meta_description,
+      </if>
+      <if test="setting != null">
+        setting,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="catid != null">
+        #{catid,jdbcType=SMALLINT},
+      </if>
+      <if test="site != null">
+        #{site,jdbcType=TINYINT},
+      </if>
+      <if test="typeid != null">
+        #{typeid,jdbcType=BIT},
+      </if>
+      <if test="modelid != null">
+        #{modelid,jdbcType=SMALLINT},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=SMALLINT},
+      </if>
+      <if test="arrparentid != null">
+        #{arrparentid,jdbcType=VARCHAR},
+      </if>
+      <if test="child != null">
+        #{child,jdbcType=BIT},
+      </if>
+      <if test="arrchildid != null">
+        #{arrchildid,jdbcType=VARCHAR},
+      </if>
+      <if test="catname != null">
+        #{catname,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null">
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="metaTitle != null">
+        #{metaTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="catdir != null">
+        #{catdir,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="urlpath != null">
+        #{urlpath,jdbcType=VARCHAR},
+      </if>
+      <if test="items != null">
+        #{items,jdbcType=INTEGER},
+      </if>
+      <if test="listorder != null">
+        #{listorder,jdbcType=SMALLINT},
+      </if>
+      <if test="ismenu != null">
+        #{ismenu,jdbcType=BIT},
+      </if>
+      <if test="categorytpl != null">
+        #{categorytpl,jdbcType=VARCHAR},
+      </if>
+      <if test="listtpl != null">
+        #{listtpl,jdbcType=VARCHAR},
+      </if>
+      <if test="showtpl != null">
+        #{showtpl,jdbcType=VARCHAR},
+      </if>
+      <if test="pagesize != null">
+        #{pagesize,jdbcType=SMALLINT},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaKeywords != null">
+        #{metaKeywords,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaDescription != null">
+        #{metaDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="setting != null">
+        #{setting,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.forchina_fn.pojo.FnCategoryWithBLOBs">
+    update fn_category
+    <set>
+      <if test="site != null">
+        site = #{site,jdbcType=TINYINT},
+      </if>
+      <if test="typeid != null">
+        typeid = #{typeid,jdbcType=BIT},
+      </if>
+      <if test="modelid != null">
+        modelid = #{modelid,jdbcType=SMALLINT},
+      </if>
+      <if test="parentid != null">
+        parentid = #{parentid,jdbcType=SMALLINT},
+      </if>
+      <if test="arrparentid != null">
+        arrparentid = #{arrparentid,jdbcType=VARCHAR},
+      </if>
+      <if test="child != null">
+        child = #{child,jdbcType=BIT},
+      </if>
+      <if test="arrchildid != null">
+        arrchildid = #{arrchildid,jdbcType=VARCHAR},
+      </if>
+      <if test="catname != null">
+        catname = #{catname,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null">
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="metaTitle != null">
+        meta_title = #{metaTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="catdir != null">
+        catdir = #{catdir,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="urlpath != null">
+        urlpath = #{urlpath,jdbcType=VARCHAR},
+      </if>
+      <if test="items != null">
+        items = #{items,jdbcType=INTEGER},
+      </if>
+      <if test="listorder != null">
+        listorder = #{listorder,jdbcType=SMALLINT},
+      </if>
+      <if test="ismenu != null">
+        ismenu = #{ismenu,jdbcType=BIT},
+      </if>
+      <if test="categorytpl != null">
+        categorytpl = #{categorytpl,jdbcType=VARCHAR},
+      </if>
+      <if test="listtpl != null">
+        listtpl = #{listtpl,jdbcType=VARCHAR},
+      </if>
+      <if test="showtpl != null">
+        showtpl = #{showtpl,jdbcType=VARCHAR},
+      </if>
+      <if test="pagesize != null">
+        pagesize = #{pagesize,jdbcType=SMALLINT},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaKeywords != null">
+        meta_keywords = #{metaKeywords,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaDescription != null">
+        meta_description = #{metaDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="setting != null">
+        setting = #{setting,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where catid = #{catid,jdbcType=SMALLINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.forchina_fn.pojo.FnCategoryWithBLOBs">
+    update fn_category
+    set site = #{site,jdbcType=TINYINT},
+      typeid = #{typeid,jdbcType=BIT},
+      modelid = #{modelid,jdbcType=SMALLINT},
+      parentid = #{parentid,jdbcType=SMALLINT},
+      arrparentid = #{arrparentid,jdbcType=VARCHAR},
+      child = #{child,jdbcType=BIT},
+      arrchildid = #{arrchildid,jdbcType=VARCHAR},
+      catname = #{catname,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
+      meta_title = #{metaTitle,jdbcType=VARCHAR},
+      catdir = #{catdir,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      urlpath = #{urlpath,jdbcType=VARCHAR},
+      items = #{items,jdbcType=INTEGER},
+      listorder = #{listorder,jdbcType=SMALLINT},
+      ismenu = #{ismenu,jdbcType=BIT},
+      categorytpl = #{categorytpl,jdbcType=VARCHAR},
+      listtpl = #{listtpl,jdbcType=VARCHAR},
+      showtpl = #{showtpl,jdbcType=VARCHAR},
+      pagesize = #{pagesize,jdbcType=SMALLINT},
+      content = #{content,jdbcType=LONGVARCHAR},
+      meta_keywords = #{metaKeywords,jdbcType=LONGVARCHAR},
+      meta_description = #{metaDescription,jdbcType=LONGVARCHAR},
+      setting = #{setting,jdbcType=LONGVARCHAR}
+    where catid = #{catid,jdbcType=SMALLINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.forchina_fn.pojo.FnCategory">
+    update fn_category
+    set site = #{site,jdbcType=TINYINT},
+      typeid = #{typeid,jdbcType=BIT},
+      modelid = #{modelid,jdbcType=SMALLINT},
+      parentid = #{parentid,jdbcType=SMALLINT},
+      arrparentid = #{arrparentid,jdbcType=VARCHAR},
+      child = #{child,jdbcType=BIT},
+      arrchildid = #{arrchildid,jdbcType=VARCHAR},
+      catname = #{catname,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
+      meta_title = #{metaTitle,jdbcType=VARCHAR},
+      catdir = #{catdir,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      urlpath = #{urlpath,jdbcType=VARCHAR},
+      items = #{items,jdbcType=INTEGER},
+      listorder = #{listorder,jdbcType=SMALLINT},
+      ismenu = #{ismenu,jdbcType=BIT},
+      categorytpl = #{categorytpl,jdbcType=VARCHAR},
+      listtpl = #{listtpl,jdbcType=VARCHAR},
+      showtpl = #{showtpl,jdbcType=VARCHAR},
+      pagesize = #{pagesize,jdbcType=SMALLINT}
+    where catid = #{catid,jdbcType=SMALLINT}
+  </update>
+  <resultMap id="BaseResultMap" type="com.forchina_fn.pojo.fnCategory">
+    <id column="catid" jdbcType="SMALLINT" property="catid" />
+    <result column="site" jdbcType="TINYINT" property="site" />
+    <result column="typeid" jdbcType="BIT" property="typeid" />
+    <result column="modelid" jdbcType="SMALLINT" property="modelid" />
+    <result column="parentid" jdbcType="SMALLINT" property="parentid" />
+    <result column="arrparentid" jdbcType="VARCHAR" property="arrparentid" />
+    <result column="child" jdbcType="BIT" property="child" />
+    <result column="arrchildid" jdbcType="VARCHAR" property="arrchildid" />
+    <result column="catname" jdbcType="VARCHAR" property="catname" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="meta_title" jdbcType="VARCHAR" property="metaTitle" />
+    <result column="catdir" jdbcType="VARCHAR" property="catdir" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="urlpath" jdbcType="VARCHAR" property="urlpath" />
+    <result column="items" jdbcType="INTEGER" property="items" />
+    <result column="listorder" jdbcType="SMALLINT" property="listorder" />
+    <result column="ismenu" jdbcType="BIT" property="ismenu" />
+    <result column="categorytpl" jdbcType="VARCHAR" property="categorytpl" />
+    <result column="listtpl" jdbcType="VARCHAR" property="listtpl" />
+    <result column="showtpl" jdbcType="VARCHAR" property="showtpl" />
+    <result column="pagesize" jdbcType="SMALLINT" property="pagesize" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.forchina_fn.pojo.fnCategoryWithBLOBs">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="meta_keywords" jdbcType="LONGVARCHAR" property="metaKeywords" />
+    <result column="meta_description" jdbcType="LONGVARCHAR" property="metaDescription" />
+    <result column="setting" jdbcType="LONGVARCHAR" property="setting" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    catid, site, typeid, modelid, parentid, arrparentid, child, arrchildid, catname, 
+    image, meta_title, catdir, url, urlpath, items, listorder, ismenu, categorytpl, listtpl, 
+    showtpl, pagesize
+  </sql>
+  <sql id="Blob_Column_List">
+    content, meta_keywords, meta_description, setting
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.forchina_fn.pojo.fnCategoryExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from fn_category
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.forchina_fn.pojo.fnCategoryExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from fn_category
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from fn_category
+    where catid = #{catid,jdbcType=SMALLINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from fn_category
+    where catid = #{catid,jdbcType=SMALLINT}
+  </delete>
+  <insert id="insert" parameterType="com.forchina_fn.pojo.fnCategoryWithBLOBs">
+    insert into fn_category (catid, site, typeid, 
+      modelid, parentid, arrparentid, 
+      child, arrchildid, catname, 
+      image, meta_title, catdir, 
+      url, urlpath, items, 
+      listorder, ismenu, categorytpl, 
+      listtpl, showtpl, pagesize, 
+      content, meta_keywords, meta_description, 
+      setting)
+    values (#{catid,jdbcType=SMALLINT}, #{site,jdbcType=TINYINT}, #{typeid,jdbcType=BIT}, 
+      #{modelid,jdbcType=SMALLINT}, #{parentid,jdbcType=SMALLINT}, #{arrparentid,jdbcType=VARCHAR}, 
+      #{child,jdbcType=BIT}, #{arrchildid,jdbcType=VARCHAR}, #{catname,jdbcType=VARCHAR}, 
+      #{image,jdbcType=VARCHAR}, #{metaTitle,jdbcType=VARCHAR}, #{catdir,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{urlpath,jdbcType=VARCHAR}, #{items,jdbcType=INTEGER}, 
+      #{listorder,jdbcType=SMALLINT}, #{ismenu,jdbcType=BIT}, #{categorytpl,jdbcType=VARCHAR}, 
+      #{listtpl,jdbcType=VARCHAR}, #{showtpl,jdbcType=VARCHAR}, #{pagesize,jdbcType=SMALLINT}, 
+      #{content,jdbcType=LONGVARCHAR}, #{metaKeywords,jdbcType=LONGVARCHAR}, #{metaDescription,jdbcType=LONGVARCHAR}, 
+      #{setting,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.forchina_fn.pojo.fnCategoryWithBLOBs">
+    insert into fn_category
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="catid != null">
+        catid,
+      </if>
+      <if test="site != null">
+        site,
+      </if>
+      <if test="typeid != null">
+        typeid,
+      </if>
+      <if test="modelid != null">
+        modelid,
+      </if>
+      <if test="parentid != null">
+        parentid,
+      </if>
+      <if test="arrparentid != null">
+        arrparentid,
+      </if>
+      <if test="child != null">
+        child,
+      </if>
+      <if test="arrchildid != null">
+        arrchildid,
+      </if>
+      <if test="catname != null">
+        catname,
+      </if>
+      <if test="image != null">
+        image,
+      </if>
+      <if test="metaTitle != null">
+        meta_title,
+      </if>
+      <if test="catdir != null">
+        catdir,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="urlpath != null">
+        urlpath,
+      </if>
+      <if test="items != null">
+        items,
+      </if>
+      <if test="listorder != null">
+        listorder,
+      </if>
+      <if test="ismenu != null">
+        ismenu,
+      </if>
+      <if test="categorytpl != null">
+        categorytpl,
+      </if>
+      <if test="listtpl != null">
+        listtpl,
+      </if>
+      <if test="showtpl != null">
+        showtpl,
+      </if>
+      <if test="pagesize != null">
+        pagesize,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="metaKeywords != null">
+        meta_keywords,
+      </if>
+      <if test="metaDescription != null">
+        meta_description,
+      </if>
+      <if test="setting != null">
+        setting,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="catid != null">
+        #{catid,jdbcType=SMALLINT},
+      </if>
+      <if test="site != null">
+        #{site,jdbcType=TINYINT},
+      </if>
+      <if test="typeid != null">
+        #{typeid,jdbcType=BIT},
+      </if>
+      <if test="modelid != null">
+        #{modelid,jdbcType=SMALLINT},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=SMALLINT},
+      </if>
+      <if test="arrparentid != null">
+        #{arrparentid,jdbcType=VARCHAR},
+      </if>
+      <if test="child != null">
+        #{child,jdbcType=BIT},
+      </if>
+      <if test="arrchildid != null">
+        #{arrchildid,jdbcType=VARCHAR},
+      </if>
+      <if test="catname != null">
+        #{catname,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null">
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="metaTitle != null">
+        #{metaTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="catdir != null">
+        #{catdir,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="urlpath != null">
+        #{urlpath,jdbcType=VARCHAR},
+      </if>
+      <if test="items != null">
+        #{items,jdbcType=INTEGER},
+      </if>
+      <if test="listorder != null">
+        #{listorder,jdbcType=SMALLINT},
+      </if>
+      <if test="ismenu != null">
+        #{ismenu,jdbcType=BIT},
+      </if>
+      <if test="categorytpl != null">
+        #{categorytpl,jdbcType=VARCHAR},
+      </if>
+      <if test="listtpl != null">
+        #{listtpl,jdbcType=VARCHAR},
+      </if>
+      <if test="showtpl != null">
+        #{showtpl,jdbcType=VARCHAR},
+      </if>
+      <if test="pagesize != null">
+        #{pagesize,jdbcType=SMALLINT},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaKeywords != null">
+        #{metaKeywords,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaDescription != null">
+        #{metaDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="setting != null">
+        #{setting,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.forchina_fn.pojo.fnCategoryWithBLOBs">
+    update fn_category
+    <set>
+      <if test="site != null">
+        site = #{site,jdbcType=TINYINT},
+      </if>
+      <if test="typeid != null">
+        typeid = #{typeid,jdbcType=BIT},
+      </if>
+      <if test="modelid != null">
+        modelid = #{modelid,jdbcType=SMALLINT},
+      </if>
+      <if test="parentid != null">
+        parentid = #{parentid,jdbcType=SMALLINT},
+      </if>
+      <if test="arrparentid != null">
+        arrparentid = #{arrparentid,jdbcType=VARCHAR},
+      </if>
+      <if test="child != null">
+        child = #{child,jdbcType=BIT},
+      </if>
+      <if test="arrchildid != null">
+        arrchildid = #{arrchildid,jdbcType=VARCHAR},
+      </if>
+      <if test="catname != null">
+        catname = #{catname,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null">
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="metaTitle != null">
+        meta_title = #{metaTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="catdir != null">
+        catdir = #{catdir,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="urlpath != null">
+        urlpath = #{urlpath,jdbcType=VARCHAR},
+      </if>
+      <if test="items != null">
+        items = #{items,jdbcType=INTEGER},
+      </if>
+      <if test="listorder != null">
+        listorder = #{listorder,jdbcType=SMALLINT},
+      </if>
+      <if test="ismenu != null">
+        ismenu = #{ismenu,jdbcType=BIT},
+      </if>
+      <if test="categorytpl != null">
+        categorytpl = #{categorytpl,jdbcType=VARCHAR},
+      </if>
+      <if test="listtpl != null">
+        listtpl = #{listtpl,jdbcType=VARCHAR},
+      </if>
+      <if test="showtpl != null">
+        showtpl = #{showtpl,jdbcType=VARCHAR},
+      </if>
+      <if test="pagesize != null">
+        pagesize = #{pagesize,jdbcType=SMALLINT},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaKeywords != null">
+        meta_keywords = #{metaKeywords,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaDescription != null">
+        meta_description = #{metaDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="setting != null">
+        setting = #{setting,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where catid = #{catid,jdbcType=SMALLINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.forchina_fn.pojo.fnCategoryWithBLOBs">
+    update fn_category
+    set site = #{site,jdbcType=TINYINT},
+      typeid = #{typeid,jdbcType=BIT},
+      modelid = #{modelid,jdbcType=SMALLINT},
+      parentid = #{parentid,jdbcType=SMALLINT},
+      arrparentid = #{arrparentid,jdbcType=VARCHAR},
+      child = #{child,jdbcType=BIT},
+      arrchildid = #{arrchildid,jdbcType=VARCHAR},
+      catname = #{catname,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
+      meta_title = #{metaTitle,jdbcType=VARCHAR},
+      catdir = #{catdir,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      urlpath = #{urlpath,jdbcType=VARCHAR},
+      items = #{items,jdbcType=INTEGER},
+      listorder = #{listorder,jdbcType=SMALLINT},
+      ismenu = #{ismenu,jdbcType=BIT},
+      categorytpl = #{categorytpl,jdbcType=VARCHAR},
+      listtpl = #{listtpl,jdbcType=VARCHAR},
+      showtpl = #{showtpl,jdbcType=VARCHAR},
+      pagesize = #{pagesize,jdbcType=SMALLINT},
+      content = #{content,jdbcType=LONGVARCHAR},
+      meta_keywords = #{metaKeywords,jdbcType=LONGVARCHAR},
+      meta_description = #{metaDescription,jdbcType=LONGVARCHAR},
+      setting = #{setting,jdbcType=LONGVARCHAR}
+    where catid = #{catid,jdbcType=SMALLINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.forchina_fn.pojo.fnCategory">
+    update fn_category
+    set site = #{site,jdbcType=TINYINT},
+      typeid = #{typeid,jdbcType=BIT},
+      modelid = #{modelid,jdbcType=SMALLINT},
+      parentid = #{parentid,jdbcType=SMALLINT},
+      arrparentid = #{arrparentid,jdbcType=VARCHAR},
+      child = #{child,jdbcType=BIT},
+      arrchildid = #{arrchildid,jdbcType=VARCHAR},
+      catname = #{catname,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
+      meta_title = #{metaTitle,jdbcType=VARCHAR},
+      catdir = #{catdir,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      urlpath = #{urlpath,jdbcType=VARCHAR},
+      items = #{items,jdbcType=INTEGER},
+      listorder = #{listorder,jdbcType=SMALLINT},
+      ismenu = #{ismenu,jdbcType=BIT},
+      categorytpl = #{categorytpl,jdbcType=VARCHAR},
+      listtpl = #{listtpl,jdbcType=VARCHAR},
+      showtpl = #{showtpl,jdbcType=VARCHAR},
+      pagesize = #{pagesize,jdbcType=SMALLINT}
+    where catid = #{catid,jdbcType=SMALLINT}
+  </update>
   <resultMap id="BaseResultMap" type="com.forchina_fn.pojo.fnCategory">
     <id column="catid" jdbcType="SMALLINT" property="catid" />
     <result column="site" jdbcType="TINYINT" property="site" />
