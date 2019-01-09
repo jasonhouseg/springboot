@@ -13,7 +13,7 @@ public class Springbootdemo1ApplicationTests {
 	@Test
 	public void contextLoads() {
 		for(int i=0;i<55;i++){
-			System.out.println("阿发放xxxx"+i*10);
+			System.out.println("测试******:"+i*10);
 		}
 	}
 
